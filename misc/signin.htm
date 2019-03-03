@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BrookOBooks</title>
+  <meta charset="utf-8" />
+
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="signincss.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
+
+</head>
+<div class="bdy">
+<body>
+  <div class="sign">
+      <h1 class="col-sm-12">Sign In</h1>
+      </div>
+<form class="form-horizontal" action=" " method="post"  id="reg_form">
+  <section class="jumbotron">
+    <div class="container">
+      <div class="row text-center">
+         <div class="form-group">
+        <label class="col-md-4 control-label">E-Mail</label>
+        <div class="col-md-6  inputGroupContainer">
+          <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+            <input name="email" placeholder="E-Mail Address" class="form-control"  type="text">
+          </div>
+        </div>
+      </div>
+      
+    
+        <div class="form-group has-feedback">
+            <label for="password"  class="col-md-4 control-label">
+                    Password
+                </label>
+                <div class="col-md-6  inputGroupContainer">
+                <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+            <input class="form-control" id="userPw" type="password" placeholder="password" 
+                       name="password" data-minLength="5"
+                       data-error="some error"
+                       required/>
+                <span class="glyphicon form-control-feedback"></span>
+                <span class="help-block with-errors"></span>
+                </div>
+             </div>
+        </div>
+        <div class="form-group">
+        <label class="col-md-4 control-label"></label>
+        <div class="col-md-4">
+          <a href="../bob.htm" type="submit" class="btn btn-primary" >Sign In </a>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+     
+      </form>
+      <script type="text/javascript">
+ 
+   $(document).ready(function() {
+    $('#reg_form').bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+   email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please supply your email address'
+                    },
+                    emailAddress: {
+                        message: 'Please supply a valid email address'
+                    }
+                }
+            },
+          
+  password: {
+            validators: {
+                identical: {
+                    field: 'confirmPassword',
+                    message: 'Confirm your password below - type same password please'
+                }
+            }
+        },
+            }
+        })
+    
+  
+        .on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow")
+                $('#reg_form').data('bootstrapValidator').resetForm();
+ 
+            e.preventDefault();
+ 
+            var $form = $(e.target);
+ 
+            var bv = $form.data('bootstrapValidator');
+ 
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                console.log(result);
+            }, 'json');
+        });
+});
+ 
+</script>
+    </body>
+  </div>
+  </html>
